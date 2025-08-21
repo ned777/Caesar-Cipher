@@ -1,17 +1,24 @@
-encrypted_text='khoor cdlud'
-shift=3
+encrypted_text = 'Khoor Cdlud'
+shift = 3
 
 def decrypt():
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
-    text=''
+    lowercase = 'abcdefghijklmnopqrstuvwxyz'
+    uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    text = ''
 
-    for char in encrypted_text.lower():
-        if char==' ':
-            text+=char
+    for char in encrypted_text:
+        if char.islower():
+            index = lowercase.find(char)
+            new_index = (index - shift) % len(lowercase)
+            text += lowercase[new_index]
+        elif char.isupper():
+            index = uppercase.find(char)
+            new_index = (index - shift) % len(uppercase)
+            text += uppercase[new_index]
         else:
-            index=alphabet.find(char)
-            new_index=(index - shift) % len(alphabet)
-            text+=alphabet[new_index]
-    print(text)
+            # keep spaces, punctuation, numbers
+            text += char
+
+    print("decrypted:", text)
 
 decrypt()
